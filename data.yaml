@@ -1,0 +1,13 @@
+train: C:/Documents/Important/FertileChickenEggs/train/images
+val: C:/Documents/Important/FertileChickenEggs/valid/images
+test: C:/Documents/Important/FertileChickenEggs/test/images
+
+nc: 2
+names: ['Fertile', 'Infertile']
+
+roboflow:
+  workspace: egg-candling
+  project: egg-candling-fpmer
+  version: 1
+  license: CC BY 4.0
+  url: https://universe.roboflow.com/egg-candling/egg-candling-fpmer/dataset/1
