@@ -1,12 +1,17 @@
 import cv2
 import torch
 from ultralytics import YOLO
+import pandas as pd
+import datetime
 
 model = YOLO(r"../Dataset/CandlingV2.pt")
 cap = cv2.VideoCapture(0)
 
+df = pd.read_csv("../Other/RESULTS.csv")
+
 cell_size = 100  
 class_positions = {}  
+new_data = []  # List to store new data
 
 while True:
     ret, frame = cap.read()
@@ -31,6 +36,9 @@ while True:
                 class_positions[label] = {'rows': set(), 'cols': set()}
             class_positions[label]['cols'].add(col)
             class_positions[label]['rows'].add(row)
+
+            # Append new data to the list
+            new_data.append({'Rows': row, 'Columns': col, 'Class': label})
 
     height, width, _ = frame.shape
     num_rows = height // cell_size
@@ -58,3 +66,8 @@ while True:
 
 cap.release()
 cv2.destroyAllWindows()
+
+# Append new data to the DataFrame and save it back to the CSV file
+new_df = pd.DataFrame(new_data)
+df = pd.concat([df, new_df], ignore_index=True)
+df.to_csv("../Other/RESULTS.csv", index=False)
