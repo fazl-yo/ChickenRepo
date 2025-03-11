@@ -3,7 +3,7 @@ import cv2
 import torch
 
 
-model = YOLO("EGGY_THINGS2/Dataset/CandlingV2.pt")  # Change path if needed
+model = YOLO("EGGY_THINGS2/Dataset/CandlingV2.pt")  
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 model.to(device)
 
